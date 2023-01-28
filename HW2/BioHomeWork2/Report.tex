@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+
+
+\title{\begin{center}CSE 5370: Bioinformatics Homework-2\end{center}}
+\author{Divya Boggavarapu(102086719)}
+\date{October 2022}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Collaboration Statement}
+I have collaborated with Vijitha Kotapati(1001860730) and Tulasi Sridevi Navuluru(1002010740) to do the programming questions in 2,3 and 4  by understanding the Needleman-Wunsch, Smith-Waterman algorithms. 
+
+\section{Substitution Matrices}
+
+Suppose that transition mutations (A ←→G and T ←→C) are less common
+than tranversions (A ←→ T , A ←→ C, G ←→ T , and G ←→ C). Following is the substitution matrix that reflects this.
+\\
+
+\begin{matrix}
+\hline
+&A&G&T&C \\
+\hline
+A&1&-5&-1&-1\\
+G&-5&1&-1&-1\\
+T&-1&-1&1&-5\\
+C&-1&-1&-5&1\\
+\end{matrix}
+\\
+
+
+
+\section{Global Alignment }
+we have conducted global alignment with the Needleman-Wunsch
+algorithm and implemented it in a single python file
+called \textbf{1002086719\_NW.py} 
+\\
+
+The global alignment function in the file will take in
+sequence A and sequence B as strings to be aligned (assume that these
+strings only contain the chars “acgt”), a gap penalty, and a
+substitution matrix and returns a list of tuples representing possible
+alignments.
+
+\subsection{An example}
+
+In \textbf{1002086719\_NW.py}, we executed the global alignment function with input strings “GATA”
+and “CTAC”, substitution matrix d and gap penalty as parameters which returned the tuples ("GATA", "-CTAC"),(“GATA-”,“C-TAC”).
+
+
+
+
+
+
+
+
+\section {Local Alignment}
+we have conducted local alignment with the Smith-Waterman algorithm and
+implemented it in a single python file
+called \textbf{1002086719\_SW.py}
+           
+\\
+
+The local\_alignment function in the file will take in
+sequence A and sequence B as the strings to be aligned (assume that these
+strings only contain the chars “acgt”), a gap penalty, and a
+substitution matrix and returns a list of tuples representing possible
+alignments.
+
+\section{A Custom Alignment }
+\begin{itemize}
+  \item I have taken my first name \textbf{divya}, last name \textbf{boggavarapu} in lowercase and concatenated them to be \textbf{'divyaboggavarapu'}.
+  \item I have written code to create a custom substitution dict to substitute all the 26 English alphabets as characters and included code for this problem in the file \textbf{"1002086719\_CUSTOM.py"}
+  
+  The file \textbf{"1002086719\_S.txt"} will provide the output of my pretty matrix.
+  
+  \item I ran “local\_alignment” function from Problem 3 with the custom S defined by my name, a gap penalty of -2, my concatenated name (i.e. “divyaboggavarapu”) as the first string, and the pangram “thequickbrown- foxjumpsoverthelazydog” as the second string. Following are the output tuples:
+  \\
+  
+ \textbf{('\_\_\_\_\_\_\_ggavarapu', 'thequicwnfoxjump'), ('\_\_\_\_\_\_\_\_\_\_\_\_\_arapu', 'thequickobvroerthe')}
+
+  
+  \item The file \textbf{"1002086719\_D.txt"} will provide the output of my pretty matrix. 
+\end{itemize}
+
+%When writing this homework assignment, I referred the following links to learn about NeedleMan-Wunsch algorithm and Smith-Waterman Algorithm.
+%https://github.com/CharliesCodes/bioinformatics/blob/main/algorithms/needleman_wunsch.py
+%https://github.com/CharliesCodes/bioinformatics/blob/main/algorithms/smith_waterman.py
+%https://github.com/haekalyulianto/Needleman_Wunsch/blob/main/Bioinfomatics_Implementation_NeedlemanWunsch_Haekal_17_415900_PA_18169.ipynb
+%https://github.com/bott0m/Needleman-Wunsch-Algorithm/blob/master/global_align.py
+
+\section{Difficulty Adjustment}
+Please find my feedback below: 
+\begin{itemize}
+    \item  How long did this assignment take you to complete?
+    \begin{itemize}
+        \item \textbf{I completed my assignment in 14 hours.}
+    \end{itemize}
+    \item  If the assignment took you longer than the 10 hours, which parts were overly difficult?
+    \begin{itemize}
+        \item \textbf{Faced difficulty in understanding the First and Custom alignment questions.}
+    \end{itemize}
+\end{itemize}
+
+\end{document}
+\end{document}

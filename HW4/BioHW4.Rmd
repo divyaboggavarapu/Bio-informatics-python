@@ -1,0 +1,120 @@
+---
+title: "BioH4"
+author: "Divya"
+date: "2022-11-21"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+library(dplyr)
+library(Seurat)
+library(patchwork)
+library(ggplot2)
+
+pbmc.data <- Read10X(data.dir = "/Users/divya/Desktop/BioInfo/HW4/Vascular/")
+pbmc <- CreateSeuratObject(counts = pbmc.data, project="pbmc3k", min.cells=3, min.features=200)
+```
+```{r}
+#QC and filtering
+pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
+
+plot1 <- FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+plot2 <- FeatureScatter(pbmc, feature1 = "nCount_RNA", feature2 = "percent.mt")
+
+plot1 + plot2
+
+pbmc <- subset(pbmc, subset = nFeature_RNA > 200 & nFeature_RNA > 2500 & percent.mt < 5)
+```
+
+```{r}
+#normalize data
+pbmc <- NormalizeData(pbmc, normalization.method = "LogNormalize", scale.factor = 10000)
+pbmc <- NormalizeData(pbmc)
+
+```
+
+```{r}
+#Finding variable features
+pbmc <- FindVariableFeatures(pbmc, selection.method = "vst", nFeatures=2000)
+top10 <- head(VariableFeatures(pbmc),10)
+plot1 <- VariableFeaturePlot(pbmc)
+plot2 <- LabelPoints(plot=plot1, points=top10, repel=TRUE)
+plot1+plot2
+```
+```{r}
+#Scale the data
+all.genes <- rownames(pbmc)
+pre_scaling <- pbmc
+pbmc <- ScaleData(pbmc,features = all.genes)
+
+```
+
+```{r}
+#run linear dimentionally reduction 
+pbmc <- RunPCA(pbmc, features = VariableFeatures(object=pbmc))
+print(pbmc[["pca"]],dims=1:5,nFeatures=5)
+VizDimLoadings(pbmc,dims=1:2,reduction="pca")
+DimHeatmap(pbmc,dims=1,cells=500)
+DimHeatmap(pbmc,dims=1:15,cells=500)
+
+pbmc <- JackStraw(pbmc,num.replicate=100)
+pbmc <- ScoreJackStraw(pbmc, dims=1:20)
+JackStrawPlot(pbmc, dims=1:20)
+```
+```{r}
+#cluster
+pbmc
+pbmc <- FindNeighbors(pbmc, dims=1:20)
+pbmc <- FindClusters(pbmc, resolution = 0.5)
+head(Idents(pbmc),5)
+```
+```{r}
+#run non linear dimentionality reduction
+pbmc <- RunUMAP(pbmc, dims=1:10)
+DimPlot(pbmc, reduction="umap")
+```
+```{r}
+#assign biological meaning to these clusters
+pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE, min.pct=0.25, logFC.threshold = 0.25)
+pbmc.markers %>% group_by(cluster) %>% slice_max(n=2,order_by = avg_log2FC)
+
+pbmc
+
+FeaturePlot(pbmc, features = c("MS4A1","GZMB","CD3E","CD14","LYZ"))
+```
+
+```{r}
+#talk to a biologist
+
+new.cluster.ids <- c("Naive CD4 T","CD14+ Mono", "Memory CD4 T","B","CD8 T","FCGR3A+ Mono","NK","DC","Platelet")
+names(new.cluster.ids) <- levels(pbmc)
+pbmc <- RenameIdents(pbmc,new.cluster.ids)
+DimPlot(pbmc, reduction="umap",label=TRUE,pt.size=0.5) + NoLegend()
+```
+

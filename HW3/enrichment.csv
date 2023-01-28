@@ -1,0 +1,15 @@
+Enrichment FDR,nGenes,Pathway Genes,Fold Enrichment,Pathway,URL,Genes
+0.031866345,2,1527,7.464309103,Metabolic pathways,http://www.genome.jp/kegg-bin/show_pathway?hsa01100 , MTMR7  ACSM3
+0.030108279,1,73,78.06849315,Inositol phosphate metabolism,http://www.genome.jp/kegg-bin/show_pathway?hsa00562 , MTMR7
+0.030108279,1,28,203.5357143,Butanoate metabolism,http://www.genome.jp/kegg-bin/show_pathway?hsa00650 , ACSM3
+0.030108279,1,97,58.75257732,Phosphatidylinositol signaling system,http://www.genome.jp/kegg-bin/show_pathway?hsa04070 , MTMR7
+0.030108279,1,78,73.06410256,Antigen processing and presentation,http://www.genome.jp/kegg-bin/show_pathway?hsa04612 , CD4
+0.030108279,1,99,57.56565657,Hematopoietic cell lineage,http://www.genome.jp/kegg-bin/show_pathway?hsa04640 , CD4
+0.030108279,1,92,61.94565217,Th1 and Th2 cell differentiation,http://www.genome.jp/kegg-bin/show_pathway?hsa04658 , CD4
+0.030108279,1,108,52.76851852,Th17 cell differentiation,http://www.genome.jp/kegg-bin/show_pathway?hsa04659 , CD4
+0.030108279,1,103,55.33009709,T cell receptor signaling pathway,http://www.genome.jp/kegg-bin/show_pathway?hsa04660 , CD4
+0.030108279,1,89,64.03370787,PD-L1 expression and PD-1 checkpoint pathway in cancer,http://www.genome.jp/kegg-bin/show_pathway?hsa05235 , CD4
+0.030108279,1,38,149.9736842,Primary immunodeficiency,http://www.genome.jp/kegg-bin/show_pathway?hsa05340 , CD4
+0.031866345,1,149,38.24832215,Cell adhesion molecules,http://www.genome.jp/kegg-bin/show_pathway?hsa04514 , CD4
+0.031866345,1,137,41.59854015,Yersinia infection,http://www.genome.jp/kegg-bin/show_pathway?hsa05135 , CD4
+0.040950764,1,222,25.67117117,Human T-cell leukemia virus 1 infection,http://www.genome.jp/kegg-bin/show_pathway?hsa05166 , CD4
